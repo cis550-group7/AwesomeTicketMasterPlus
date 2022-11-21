@@ -1,0 +1,30 @@
+############### Query & Description ###############
+
+- Homepage -
+
+1. Search top 100 artists with the most events
+
+SELECT COUNT(*) event_num, e.name FROM Events e 
+JOIN Artist a ON a.id = e.artist_id
+GROUP BY e.name
+ORDER BY e.event_num DESC
+
+2. Upcoming events in 30 days
+
+SELECT name FROM Event 
+ORDER BY Time DESC
+
+3. Sign up
+
+INSERT INTO User (id, password, username) 
+VALUES 
+      (value_list_id), 
+      (value_list_password), 
+      (value_list_username); 
+
+4. Log in 
+
+SELECT password from User WHERE id = ""
+
+############### Credential ###############
+
