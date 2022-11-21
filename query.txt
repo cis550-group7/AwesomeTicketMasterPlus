@@ -61,4 +61,28 @@ SELECT E.Name, E.Date, E.Image, E.Price, E.Location
 FROM Artist A JOIN Participation P ON A.Id = P.ArtistId JOIN Events E ON E.Id = P.EventID
 WHERE A.Name = “Justin Bieber”;
 
+- Events Page -
+
+10. Show all upcoming events and their corresponding venues, and order events by their dates
+SELECT Name, Image, Price, Date, Address, City, State, PostalCode, Country
+FROM Event E JOIN Venue V ON E.Location = V.Id
+WHERE Date > ‘2022-11-20’
+ORDER BY Date;
+
+11. Search an event based on substring of event name
+SELECT Id
+FROM Event
+WHERE Name LIKE ‘%Mayday Concert%’
+ORDER BY Date, Name;
+
+12. Rank events based on the popularity of the artists in the event. Popularity is measured by the number of followers of the artists.
+WITH Popularity AS (
+SELECT Id, COUNT(DISTINCT UserId) AS Pop
+FROM Events E JOIN Participation P ON E.Id = P.EventId JOIN Follow F ON P.ArtistId = F.ArtistId
+GROUP BY Id
+)
+SELECT Name, Image, Price, Date, Address, City, State, PostalCode, Country
+FROM Event E JOIN Venue V ON E.Location = V.Id JOIN Popularity P on P.Id = E.Id
+ORDER BY Pop;
+
 ############### Credential ###############
