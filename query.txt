@@ -26,7 +26,7 @@ VALUES
 
 SELECT password from User WHERE id = ""
 
-############### Credential ###############
+
 
 - Artists Page -
 5. Show all artists
@@ -37,37 +37,28 @@ FROM Artists;
 6. Rank artists by event counts and show their info
 
 WITH TEMP AS (
-
 SELECT ArtistId, COUNT(*) AS NumEvents
-
 FROM Participation 
-
 GROUP BY UserId)
-
 SELECT A.Name, A.DOB, A.Image, A.Genre, T.NumEvents
-
-FROM Artists A JOIN TEMP T ON T.ArtistId = A.Id
+FROM Artists A JOIN TEMP T ON T.ArtistId = A.Id;
 
 7. Search an artist
 
 SELECT A.Name, A.DOB, A.Image, A.Genre
-
 FROM Artists A
+WHERE A.Name = “Justin Bieber”;
 
-WHERE [A.Name](http://A.Name) = “Justin Bieber”
-
-8. Click to view artist’s songs on their song page
+8.View artist’s songs 
 
 SELECT S.Name, S.DatePub, S.Image
+FROM Songs S JOIN Artists A ON A.Id = S.ArtistId
+WHERE A.Name = “Justin Bieber”; 
 
-FROM Songs S JOIN Artists A ON [A.Id](http://A.Id) = S.ArtistId
-
-WHERE [A](http://Artist.Id).Name = “Justin Bieber” 
-
-9. Click to view artist-participated events on their event page
+9. View artist-participated events on their event page
 
 SELECT E.Name, E.Date, E.Image, E.Price, E.Location
+FROM Artist A JOIN Participation P ON A.Id = P.ArtistId JOIN Events E ON E.Id = P.EventID
+WHERE A.Name = “Justin Bieber”;
 
-FROM Artist A JOIN Participation P ON [A.Id](http://A.Id) = P.ArtistId JOIN Events E ON [E.Id](http://E.Id) = P.EventID
-
-WHERE [A.Name](http://A.Name) = “Justin Bieber”
+############### Credential ###############
