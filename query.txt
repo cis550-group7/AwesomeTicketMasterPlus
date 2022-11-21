@@ -28,3 +28,4 @@ SELECT password from User WHERE id = ""
 
 ############### Credential ###############
 
+- Artists Page -
