@@ -82,7 +82,7 @@ FROM Events E JOIN Participation P ON E.Id = P.EventId JOIN Follow F ON P.Artist
 GROUP BY Id
 )
 SELECT Name, Image, Price, Date, Address, City, State, PostalCode, Country
-FROM Event E JOIN Venue V ON E.Location = V.Id JOIN Popularity P on P.Id = E.Id
+FROM Event E JOIN Venue V ON E.Location = V.Id JOIN Popularity P ON P.Id = E.Id
 ORDER BY Pop;
 
 ############### Credential ###############
