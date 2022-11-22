@@ -13,3 +13,14 @@ db_config = {
     "password": "Ticketplus123!"
     
 }
+
+DB Name: TICKETMASTERPLUS_DB
+Tables:
+    - Artists
+    - Events
+    - Venues
+    - Songs
+    - Users
+    - Participation
+    - Reservation
+    - Follow
