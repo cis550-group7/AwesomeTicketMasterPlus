@@ -5,40 +5,40 @@ USE TICKETMASTERPLUS_DB;
 CREATE TABLE Artists
 (
 	id		int,
-	name		varchar(25),
+	name		varchar(255),
 	genres		varchar(255),
-	images		varchar(255),
-	uri		varchar(255),
-	external_urls	varchar(255),
+	images		varchar(2083),
+	uri		varchar(2083),
+	external_urls	varchar(2083),
 	popularity	int,
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE Venues
 (
-	id		varchar(25),
-	name		varchar(25),
-	url		varchar(255),
+	id		varchar(255),
+	name		varchar(255),
+	url		varchar(2083),
 	address		varchar(255),
-	city		varchar(25),
-	state		varchar(25),
-	country		varchar(25),
+	city		varchar(255),
+	state		varchar(255),
+	country		varchar(255),
 	postalCode	int,
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE Events
 (
-	id		varchar(25),
-	name		varchar(25),
-	products	varchar(25),
-	images		varchar(255),
-	url		varchar(255),
-	date		varchar(25),
-	time		varchar(25),
-	priceFrom	varchar(25),
-	priceTo		varchar(25),
-	venues		varchar(25),
+	id		varchar(255),
+	name		varchar(255),
+	products	varchar(255),
+	images		varchar(2083),
+	url		varchar(2083),
+	date		DATE,
+	time		TIME,
+	priceFrom	DECIMAL(10, 2),
+	priceTo		DECIMAL(10, 2),
+	venues		varchar(255),
 	PRIMARY KEY (id),
 	FOREIGN KEY (venues) REFERENCES Venues(id)
 );
@@ -47,8 +47,8 @@ CREATE TABLE Songs
 (
 	id		int,
 	artistId	int,
-	name		varchar(25),
-	url		varchar(255),
+	name		varchar(255),
+	url		varchar(2083),
 	PRIMARY KEY (id, artistId),
 	FOREIGN KEY (artistId) REFERENCES Artists(id)
 );
@@ -56,19 +56,19 @@ CREATE TABLE Songs
 CREATE TABLE Users
 (
 	id		int,
-	name		varchar(25),
-	username	varchar(25),
-	password	varchar(25),
-	dob		varchar(25),
-	email		varchar(25),
+	name		varchar(255),
+	username	varchar(255),
+	password	varchar(255),
+	dob		DATE,
+	email		varchar(255),
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE Reservation
 (
 	userId		int,
-	eventId		varchar(25),
-	timePlaced	varchar(25),
+	eventId		varchar(255),
+	timePlaced	TIMESTAMP,
 	FOREIGN KEY (userId) REFERENCES Users(id),
 	FOREIGN KEY (eventId) REFERENCES Events(id)
 );
@@ -76,7 +76,7 @@ CREATE TABLE Reservation
 CREATE TABLE Participation
 (
 	artistId	int,
-	eventId		varchar(25),
+	eventId		varchar(255),
 	FOREIGN KEY (artistId) REFERENCES Artists(id),
 	FOREIGN KEY (eventId) REFERENCES Events(id)
 );
