@@ -14,25 +14,9 @@ CREATE TABLE Artists
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE Events
-(
-	id		int,
-	name		varchar(25),
-	products	varchar(25),
-	images		varchar(255),
-	url		varchar(255),
-	date		varchar(25),
-	time		varchar(25),
-	priceFrom	varchar(25),
-	priceTo		varchar(25),
-	venues		int,
-	PRIMARY KEY (id),
-	FOREIGN KEY (venues) REFERENCES Venues(id)
-);
-
 CREATE TABLE Venues
 (
-	id		int,
+	id		varchar(25),
 	name		varchar(25),
 	url		varchar(255),
 	address		varchar(255),
@@ -41,6 +25,22 @@ CREATE TABLE Venues
 	country		varchar(25),
 	postalCode	int,
 	PRIMARY KEY (id)
+);
+
+CREATE TABLE Events
+(
+	id		varchar(25),
+	name		varchar(25),
+	products	varchar(25),
+	images		varchar(255),
+	url		varchar(255),
+	date		varchar(25),
+	time		varchar(25),
+	priceFrom	varchar(25),
+	priceTo		varchar(25),
+	venues		varchar(25),
+	PRIMARY KEY (id),
+	FOREIGN KEY (venues) REFERENCES Venues(id)
 );
 
 CREATE TABLE Songs
@@ -68,7 +68,7 @@ CREATE TABLE Users
 CREATE TABLE Reservation
 (
 	userId		int,
-	eventId		int,
+	eventId		varchar(25),
 	timePlaced	varchar(25),
 	FOREIGN KEY (userId) REFERENCES Users(id),
 	FOREIGN KEY (eventId) REFERENCES Events(id)
@@ -77,7 +77,7 @@ CREATE TABLE Reservation
 CREATE TABLE Participation
 (
 	artistId	int,
-	eventId		int,
+	eventId		varchar(25),
 	FOREIGN KEY (artistId) REFERENCES Artists(id),
 	FOREIGN KEY (eventId) REFERENCES Events(id)
 );
