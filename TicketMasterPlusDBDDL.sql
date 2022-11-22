@@ -16,7 +16,8 @@ CREATE TABLE Artists
 
 CREATE TABLE Venues
 (
-	id		varchar(255),
+	id		int,
+	apiId		varchar(255),
 	name		varchar(255),
 	url		varchar(2083),
 	address		varchar(255),
@@ -29,7 +30,8 @@ CREATE TABLE Venues
 
 CREATE TABLE Events
 (
-	id		varchar(255),
+	id		int,
+	apiId		varchar(255),
 	name		varchar(255),
 	products	varchar(255),
 	images		varchar(2083),
@@ -38,7 +40,7 @@ CREATE TABLE Events
 	time		TIME,
 	priceFrom	DECIMAL(10, 2),
 	priceTo		DECIMAL(10, 2),
-	venues		varchar(255),
+	venues		int,
 	PRIMARY KEY (id),
 	FOREIGN KEY (venues) REFERENCES Venues(id)
 );
@@ -67,7 +69,7 @@ CREATE TABLE Users
 CREATE TABLE Reservation
 (
 	userId		int,
-	eventId		varchar(255),
+	eventId		int,
 	timePlaced	TIMESTAMP,
 	FOREIGN KEY (userId) REFERENCES Users(id),
 	FOREIGN KEY (eventId) REFERENCES Events(id)
@@ -76,7 +78,7 @@ CREATE TABLE Reservation
 CREATE TABLE Participation
 (
 	artistId	int,
-	eventId		varchar(255),
+	eventId		int,
 	FOREIGN KEY (artistId) REFERENCES Artists(id),
 	FOREIGN KEY (eventId) REFERENCES Events(id)
 );
