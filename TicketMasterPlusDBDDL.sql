@@ -49,7 +49,6 @@ CREATE TABLE Songs
 	artistId	int,
 	name		varchar(25),
 	url		varchar(255),
-	image		varchar(255),
 	PRIMARY KEY (id, artistId),
 	FOREIGN KEY (artistId) REFERENCES Artists(id)
 );
