@@ -1,5 +1,7 @@
 # AwesomeTicketMasterPlus
 
+The DB is running based on AWS Academy Learner Lab (it runs 4-hour time windows). Therefore, the DB is not always active. 
+
 db_config = {
 
     "username" : "ticketmasterplus",
