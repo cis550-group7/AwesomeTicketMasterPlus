@@ -8,18 +8,18 @@ https://github.com/cis550-group7/AwesomeTicketMasterPlus
 
 1. Search top 100 artists with the most events
 
-SELECT a.name, p.id, COUNT(*) AS event_num 
-FROM Participation p 
+SELECT a.name, p.artistId, COUNT(*) AS event_num
+FROM Participation p
 JOIN Artists a ON a.id = p.artistId
-GROUP BY p.id
+GROUP BY p.artistId
 ORDER BY event_num DESC
 
 2. Upcoming events in 30 days
 
-SELECT id, name 
+SELECT id, name, date
 FROM Events
-WHERE Date - GETDATE() <= 30
-ORDER BY Date ASEC
+WHERE DATEDIFF(CURDATE(), date) <= 30 AND DATEDIFF(CURDATE(), date) >= 0
+ORDER BY date ASC;
 
 3. Sign up
 
@@ -39,7 +39,7 @@ SELECT password from User WHERE id = ""
 - Artists Page -
 5. Show all artists
 
-SELECT name, DOB, images, genres
+SELECT *
 FROM Artists;
 
 6. Rank artists by event counts and show their info
@@ -55,14 +55,14 @@ FROM Artists A JOIN TEMP T ON T.artistId = A.id;
 
 SELECT *
 FROM Artists A
-WHERE A.name = “Justin Bieber”;
+WHERE A.name = 'Justin Bieber';
 
 8.View artist’s songs 
 
 SELECT S.id, S.name, S.url
-FROM Songs S 
+FROM Songs S
 JOIN Artists A ON A.Id = S.ArtistId
-WHERE A.Name = “Justin Bieber”; 
+WHERE A.Name = 'Justin Bieber';
 
 9. View artist-participated events on their event page
 
@@ -70,13 +70,13 @@ SELECT E.id, E.name, E.date, E.time, E.images, E.priceFrom, E.priceTo, E.venues
 FROM Artists A 
 JOIN Participation P ON A.id = P.artistId 
 JOIN Events E ON E.id = P.eventID
-WHERE A.Name = “Justin Bieber”;
+WHERE A.Name = 'Justin Bieber';
 
 - Events Page -
 
 10. Show all upcoming events and their corresponding venues, and order events by their dates
 
-SELECT name, images, priceFrom, priceTo, date, time, address, city, state, postalCode, country
+SELECT E.name, images, priceFrom, priceTo, date, time, address, city, state, postalCode, country
 FROM Events E 
 JOIN Venues V ON E.venues = V.id
 WHERE date > ‘2022-11-20’
@@ -84,9 +84,9 @@ ORDER BY date;
 
 11. Search an event based on substring of event name
 
-SELECT id
+SELECT id, name, date
 FROM Events
-WHERE name LIKE ‘%Mayday Concert%’
+WHERE name LIKE '%concert%'
 ORDER BY date, name;
 
 12. Rank events based on the popularity of the artists in the event. Popularity is measured by the number of followers of the artists.
@@ -96,9 +96,9 @@ SELECT P.artistId, COUNT(*) AS pop
 FROM Events E 
 JOIN Participation P ON E.Id = P.EventId 
 JOIN Follow F ON P.artistId = F.artistId
-GROUP BY A.id
+GROUP BY P.artistId
 )
-SELECT name, images, priceFrom, priceTo, date, time, address, city, state, postalCode, country
+SELECT E.name, images, priceFrom, priceTo, date, time, address, city, state, postalCode, country
 FROM Events E 
 JOIN Venues V ON E.venues = V.id 
 JOIN Popularity P ON P.id = E.id
