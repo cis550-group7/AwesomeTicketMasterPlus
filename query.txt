@@ -86,3 +86,11 @@ FROM Event E JOIN Venue V ON E.Location = V.Id JOIN Popularity P ON P.Id = E.Id
 ORDER BY Pop;
 
 ############### Credential ###############
+
+db_config = {
+    "username" : "ticketmasterplus",
+    "host": "database-1.cyc3xnhwrawo.us-east-1.rds.amazonaws.com",
+    "port": "3306",
+    "password": "Ticketplus123!"
+}
+
