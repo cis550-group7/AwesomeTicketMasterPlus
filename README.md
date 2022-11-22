@@ -16,11 +16,19 @@ db_config = {
 
 DB Name: TICKETMASTERPLUS_DB
 Tables:
+
     - Artists
+    
     - Events
+    
     - Venues
+    
     - Songs
+    
     - Users
+    
     - Participation
+    
     - Reservation
+    
     - Follow
