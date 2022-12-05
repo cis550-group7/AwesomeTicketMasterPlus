@@ -70,9 +70,9 @@ async function getFollows(req, res) {
 async function followArtist(req, res) {
     connection.query(`
     INSERT INTO Follow (userId, artistId) 
-    VALUES 
+    VALUES (
         ${req.body.userId},
-        ${req.body.artistId};
+        ${req.body.artistId});
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -117,9 +117,9 @@ async function getReservations(req, res) {
 async function reserveEvent(req, res) {
     connection.query(`
     INSERT INTO Reservation (userId, eventId) 
-    VALUES 
+    VALUES (
         ${req.body.userId},
-        ${req.body.eventId};
+        ${req.body.eventId});
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
