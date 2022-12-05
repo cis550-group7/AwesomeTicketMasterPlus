@@ -57,7 +57,7 @@ CREATE TABLE Songs
 
 CREATE TABLE Users
 (
-	id		int,
+	id		int NOT NULL AUTO_INCREMENT,
 	name		varchar(255),
 	username	varchar(255),
 	password	varchar(255),
@@ -70,7 +70,7 @@ CREATE TABLE Reservation
 (
 	userId		int,
 	eventId		int,
-	timePlaced	TIMESTAMP,
+	timePlaced	DATETIME DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (userId) REFERENCES Users(id),
 	FOREIGN KEY (eventId) REFERENCES Events(id)
 );
