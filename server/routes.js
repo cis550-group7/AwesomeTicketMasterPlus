@@ -164,7 +164,7 @@ async function getArtistsByName(req, res) {
     connection.query(`
     SELECT *
     FROM Artists
-    WHERE TRIM(LOWER(name)) LIKE '%TRIM(LOWER(${req.query.name}))%'
+    WHERE name LIKE '%${req.query.name}%'
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
