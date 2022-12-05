@@ -416,7 +416,7 @@ async function getArtistEvents(req, res){
     FROM Artists A 
     JOIN Participation P ON A.id = P.artistId 
     JOIN Events E ON E.id = P.eventID
-    WHERE TRIM(LOWER(A.name)) LIKE '%TRIM(LOWER(${artistName}))%'`, function (error, results, fields) {
+    WHERE A.name LIKE '%${artistName}%'`, function (error, results, fields) {
 
         if (error) {
             console.log(error)
