@@ -159,7 +159,7 @@ async function getArtist(req, res) {
     });
 }
 
-async function getArtistByName(req, res) {
+async function getArtistsByName(req, res) {
     connection.query(`
     SELECT *
     FROM Artists
@@ -295,7 +295,7 @@ module.exports = {
     getVenuesByName,
 
     getArtist,
-    getArtistByName,
+    getArtistsByName,
 
     getSongs,
 
@@ -306,7 +306,7 @@ module.exports = {
     getReservations,
     reserveEvent,
     unreserveEvent,
-    
+
     getPopularArtists,
     getUpcomingEvents,
 }
