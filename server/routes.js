@@ -335,31 +335,31 @@ async function search_events(req, res) {
 // ********************************************
 //             ARTIST-SPECIFIC ROUTES
 // ********************************************
-async function getArtistById(req, res) {
-    // TODO: TASK 6: implement and test, potentially writing your own (ungraded) tests
-    if (req.query.id && !isNaN(req.query.id)){
-        connection.query(`SELECT *
-        FROM Artists A
-        WHERE A.id = ${req.query.id}`, function (error, results, fields) {
+// async function getArtistById(req, res) {
+//     // TODO: TASK 6: implement and test, potentially writing your own (ungraded) tests
+//     if (req.query.id && !isNaN(req.query.id)){
+//         connection.query(`SELECT *
+//         FROM Artists A
+//         WHERE A.id = ${req.query.id}`, function (error, results, fields) {
 
-            if (error) {
-                console.log(error)
-                res.json({ error: error })
-            } else {
-                res.json({ results: results })
-            } 
-        });
+//             if (error) {
+//                 console.log(error)
+//                 res.json({ error: error })
+//             } else {
+//                 res.json({ results: results })
+//             } 
+//         });
 
-    } else if(!req.query.id){
-        console.log("Error! Id was not provided!")
-        res.json({ error: "Error! Id was not provided!" })
-    } else{
-        if (error) {
-            console.log(error)
-            res.json({ error: error })
-        } 
-    }
-}
+//     } else if(!req.query.id){
+//         console.log("Error! Id was not provided!")
+//         res.json({ error: "Error! Id was not provided!" })
+//     } else{
+//         if (error) {
+//             console.log(error)
+//             res.json({ error: error })
+//         } 
+//     }
+// }
 
 async function rankArtistByEventCounts(req, res) {
     connection.query(`WITH TEMP AS (
@@ -455,7 +455,7 @@ module.exports = {
     getUpcomingEvents,
     // getEventById,
     search_events,
-    getArtistById,
+    // getArtistById,
     rankArtistByEventCounts,
     getArtistByName,
     getArtistSongs,
