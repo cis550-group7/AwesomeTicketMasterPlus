@@ -2,5 +2,8 @@
     "username" : "ticketmasterplus",
     "host": "database-1.cyc3xnhwrawo.us-east-1.rds.amazonaws.com",
     "port": "3306",
-    "password": "Ticketplus123!"
+    "password": "Ticketplus123!",
+    "rds_db": "TICKETMASTERPLUS_DB",
+    "server_host": "127.0.0.1",
+    "server_port":"8080"
 }
