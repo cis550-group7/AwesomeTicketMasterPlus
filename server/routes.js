@@ -35,12 +35,12 @@ async function getUser(req, res) {
 async function createNewUser(req, res) {
     connection.query(`
     INSERT INTO Users (name, username, password, dob, email) 
-    VALUES 
+    VALUES (
         ${req.body.name},
         ${req.body.username},
         ${req.body.password},
         ${req.body.dob},
-        ${req.body.email},; 
+        ${req.body.email}); 
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
