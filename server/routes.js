@@ -33,14 +33,13 @@ async function getUser(req, res) {
 
 async function createNewUser(req, res) {
     connection.query(`
-    INSERT INTO Users (first_name, last_name, username, password, dob, email) 
+    INSERT INTO Users (name, username, password, dob, email) 
     VALUES 
-        ${req.body.first_name},
-        ${req.body.last_name},
-        ${req.body.value_list_username},
-        ${req.body.value_list_password},
-        ${req.body.value_list_dob},
-        ${req.body.value_list_email},; 
+        ${req.body.name},
+        ${req.body.username},
+        ${req.body.password},
+        ${req.body.dob},
+        ${req.body.email},; 
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -83,6 +82,21 @@ async function followArtist(req, res) {
     });
 }
 
+async function unfollowArtist(req, res) {
+    connection.query(`
+    DELETE FROM Follow
+    WHERE userId = ${req.body.userId}
+    AND artistID = ${req.body.artistId};
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
 async function getReservations(req, res) {
     connection.query(`
     SELECT *
@@ -105,6 +119,21 @@ async function reserveEvent(req, res) {
     VALUES 
         ${req.body.userId},
         ${req.body.eventId};
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function unreserveEvent(req, res) {
+    connection.query(`
+    DELETE FROM Reservations
+    WHERE userId = ${req.body.userId}
+    AND eventId = ${req.body.eventId};
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -257,18 +286,27 @@ async function getUpcomingEvents(req, res) {
 
 module.exports = {
     getUser,
-    getEvent,
-    getVenue,
-    getArtist,
-    getSongs,
-    getFollows,
-    getReservations,
-    getArtistByName,
-    getEventsByName,
-    getVenuesByName,
     createNewUser,
+
+    getEvent,
+    getEventsByName,
+
+    getVenue,
+    getVenuesByName,
+
+    getArtist,
+    getArtistByName,
+
+    getSongs,
+
+    getFollows,
     followArtist,
+    unfollowArtist,
+
+    getReservations,
     reserveEvent,
+    unreserveEvent,
+    
     getPopularArtists,
     getUpcomingEvents,
 }
