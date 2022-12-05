@@ -395,7 +395,7 @@ async function getArtistByName(req, res) {
 
 async function getArtistSongs(req, res) {
     const artistName = req.query.Name ? req.query.Name: ''
-    connection.query(`SELECT S.id, S.name, S.url
+    connection.query(`SELECT S.id, S.name, S.uri
         FROM Songs S
         JOIN Artists A ON A.Id = S.ArtistId
         WHERE A.name LIKE '%${artistName}%'
