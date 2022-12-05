@@ -287,31 +287,31 @@ async function getUpcomingEvents(req, res) {
 //             EVENT-SPECIFIC ROUTES
 // ********************************************
 
-async function getEventById(req, res) {
-    if (req.query.id && !isNaN(req.query.id)){
-        connection.query(`SELECT E.id AS EventId, E.name as EventName, images, priceFrom, priceTo, date, time, address, city, state, postalCode, country
-        FROM Events E 
-        JOIN Venues V ON E.venues = V.id
-        WHERE E.id = ${req.query.id}`, function (error, results, fields) {
+// async function getEventById(req, res) {
+//     if (req.query.id && !isNaN(req.query.id)){
+//         connection.query(`SELECT E.id AS EventId, E.name as EventName, images, priceFrom, priceTo, date, time, address, city, state, postalCode, country
+//         FROM Events E 
+//         JOIN Venues V ON E.venues = V.id
+//         WHERE E.id = ${req.query.id}`, function (error, results, fields) {
 
-            if (error) {
-                console.log(error)
-                res.json({ error: error })
-            } else {
-                res.json({ results: results })
-            } 
-        });
+//             if (error) {
+//                 console.log(error)
+//                 res.json({ error: error })
+//             } else {
+//                 res.json({ results: results })
+//             } 
+//         });
 
-    } else if(!req.query.id){
-        console.log("Error! Id was not provided!")
-        res.json({ error: "Error! Id was not provided!" })
-    } else{
-        if (error) {
-            console.log(error)
-            res.json({ error: error })
-        } 
-    }
-}
+//     } else if(!req.query.id){
+//         console.log("Error! Id was not provided!")
+//         res.json({ error: "Error! Id was not provided!" })
+//     } else{
+//         if (error) {
+//             console.log(error)
+//             res.json({ error: error })
+//         } 
+//     }
+// }
 
 async function search_events(req, res) {
     const eventName = req.query.Name ? req.query.Name: ''
@@ -453,7 +453,7 @@ module.exports = {
 
     getPopularArtists,
     getUpcomingEvents,
-    getEventById,
+    // getEventById,
     search_events,
     getArtistById,
     rankArtistByEventCounts,
