@@ -33,9 +33,10 @@ async function getUser(req, res) {
 
 async function createNewUser(req, res) {
     connection.query(`
-    INSERT INTO Users (id, username, password, dob, email) 
+    INSERT INTO Users (first_name, last_name, username, password, dob, email) 
     VALUES 
-        ${req.body.value_list_id},
+        ${req.body.first_name},
+        ${req.body.last_name},
         ${req.body.value_list_username},
         ${req.body.value_list_password},
         ${req.body.value_list_dob},
@@ -66,6 +67,22 @@ async function getFollows(req, res) {
     });
 }
 
+async function followArtist(req, res) {
+    connection.query(`
+    INSERT INTO Follow (userId, artistId) 
+    VALUES 
+        ${req.body.userId},
+        ${req.body.artistId};
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
 async function getReservations(req, res) {
     connection.query(`
     SELECT *
@@ -82,11 +99,42 @@ async function getReservations(req, res) {
     });
 }
 
+async function reserveEvent(req, res) {
+    connection.query(`
+    INSERT INTO Reservation (userId, eventId) 
+    VALUES 
+        ${req.body.userId},
+        ${req.body.eventId};
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
 async function getArtist(req, res) {
     connection.query(`
     SELECT *
     FROM Artists
     WHERE id == ${req.query.id}
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function getArtistByName(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Artists
+    WHERE TRIM(LOWER(name)) LIKE '%TRIM(LOWER(${req.query.name}))%'
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -129,11 +177,41 @@ async function getEvent(req, res) {
     });
 }
 
+async function getEventsByName(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Events
+    WHERE TRIM(LOWER(name)) LIKE '%TRIM(LOWER(${req.query.name}))%'
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
 async function getVenue(req, res) {
     connection.query(`
     SELECT *
     FROM Venues
     WHERE id == ${req.query.id}
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function getVenuesByName(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Venues
+    WHERE TRIM(LOWER(name)) LIKE '%TRIM(LOWER(${req.query.name}))%'
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -178,6 +256,19 @@ async function getUpcomingEvents(req, res) {
 
 
 module.exports = {
+    getUser,
+    getEvent,
+    getVenue,
+    getArtist,
+    getSongs,
+    getFollows,
+    getReservations,
+    getArtistByName,
+    getEventsByName,
+    getVenuesByName,
+    createNewUser,
+    followArtist,
+    reserveEvent,
     getPopularArtists,
     getUpcomingEvents,
 }
