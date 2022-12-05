@@ -16,6 +16,134 @@ connection.connect();
 //              Route Handlers 
 // ********************************************
 
+async function getUser(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Users
+    WHERE id == ${req.query.id}
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function createNewUser(req, res) {
+    connection.query(`
+    INSERT INTO Users (id, username, password, dob, email) 
+    VALUES 
+        ${req.body.value_list_id},
+        ${req.body.value_list_username},
+        ${req.body.value_list_password},
+        ${req.body.value_list_dob},
+        ${req.body.value_list_email},; 
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function getFollows(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Follow f
+    JOIN Artists a ON f.artistId = a.id
+    WHERE f.userId == ${req.query.id}
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function getReservations(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Reservation r
+    JOIN Events e a ON r.eventId = e.id
+    WHERE r.userId == ${req.query.id}
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function getArtist(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Artists
+    WHERE id == ${req.query.id}
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function getSongs(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Songs
+    WHERE artist_id == ${req.query.id}
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function getEvent(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Events e
+    JOIN Venues v
+    ON e.venues = v.id
+    WHERE e.id == ${req.query.id}
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+async function getVenue(req, res) {
+    connection.query(`
+    SELECT *
+    FROM Venues
+    WHERE id == ${req.query.id}
+    `, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
 //Route 1 for Homepage: Get top 100 artists with the most events
 async function getPopularArtists(req, res) {
     connection.query(`SELECT a.name, p.artistId, COUNT(*) AS event_num
@@ -46,6 +174,8 @@ async function getUpcomingEvents(req, res) {
         }
     });
 }
+
+
 
 module.exports = {
     getPopularArtists,
