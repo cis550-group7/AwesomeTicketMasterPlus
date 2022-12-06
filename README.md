@@ -17,6 +17,9 @@ db_config = {
 Datasets:
 https://drive.google.com/drive/folders/13hBqT3HB0lJaQSMd7jMbm9xPDMFBLQsj?usp=share_link
 
+API Documentation:
+https://docs.google.com/document/d/1sAm6Kv-MSEahjwk0TIwC0Ag5xMJYfVgCgsEFReK63Io/edit?usp=sharing
+
 DB Name: 
 
     TICKETMASTERPLUS_DB
