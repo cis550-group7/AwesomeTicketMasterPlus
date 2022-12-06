@@ -12,7 +12,7 @@ const app = express();
 app.use(cors({ credentials: true, origin: ['http://localhost:3000'] }));
 
 // Route 1 - Description: Returns a row of users
-app.get('/users', routes.getUser)
+app.get('/user', routes.getUser)
 
 // Route 2 - Description: Create a user with the request body information
 app.post('/user/', routes.createNewUser)
@@ -21,19 +21,19 @@ app.post('/user/', routes.createNewUser)
 app.get('/artist', routes.getArtist)
 
 // Route 4 - Description: Returns a list of artists through fuzzy search by name. For example, Tayler Swift will be included in the response with input “swift”. 
-app.get('/artists/', routes.getArtistsByName)
+app.get('/artists', routes.getArtistsByName)
 
 // Route 5 - Description: Returns an event with the provided id 
 app.get('/event', routes.getEvent)
 
 // Route 6 - Description: Returns a list of events through fuzzy search by name.
-app.get('/events/', routes.getEventsByName)
+app.get('/events', routes.getEventsByName)
 
 // Route 7 - Description: Returns a venue with the provided id
 app.get('/venue', routes.getVenue)
 
 // Route 8 - Description: Returns a list of venues through fuzzy search by name.
-app.get('/venues/', routes.getVenuesByName)
+app.get('/venues', routes.getVenuesByName)
 
 // Route 9 - Description: Returns a list of artists that the provided user is following
 app.get('/follows', routes.getFollows)
@@ -51,28 +51,28 @@ app.post('/reservation/', routes.reserveEvent)
 app.delete('/reservation/', routes.unreserveEvent)
 
 // Route 14 - Description: Returns a song with the provided id
-app.get('/song', routes.getSongs)
+app.get('/songs', routes.getSongs)
 
 // Route 15 - Description: For Homepage: Returns top 100 artists with the most events
-app.get('/topArtists/', routes.getPopularArtists)
+app.get('/artists/topPopular', routes.getPopularArtists)
+
+// Route 15 - Description: For Homepage: Returns top 100 artists with the most events
+app.get('/artists/mostEvents', routes.getArtistsByNumEvents)
 
 // Route 16 - Description: for Homepage: Returns upcoming events in 30 days 
-app.get('/upcomingEvents/', routes.getUpcomingEvents)
+app.get('/events/upcoming', routes.getUpcomingEvents)
 
 // Route 17 - Description: Returns an array of selected attributes for upcoming events in 30 days that match the search query; rank events by dates
-app.get('/search/events', routes.search_events)
+app.get('/events/search', routes.search_events)
 
 // Route 18 - Description: Returns an array of selected attributes for artist; rank artists by event counts
-app.get('/artists/rank', routes.rankArtistByEventCounts)
+app.get('/rank', routes.rankArtistByEventCounts)
 
-// Route 19 - Description: Search artists by name 
-app.get('/artist', routes.getArtistByName)
+// Route 19 - Description: Search songs by the provided artist name 
+app.get('/:artist/songs', routes.getArtistSongs)
 
-// Route 20 - Description: Search songs by the provided artist name 
-app.get('/artist/songs', routes.getArtistSongs)
-
-// Route 21 - Description: Search events participated by a given artist
-app.get('/artist/events', routes.getArtistEvents)
+// Route 20 - Description: Search events participated by a given artist
+app.get('/:artist/events', routes.getArtistEvents)
 
 app.listen(config.server_port, () => {
     console.log(`Server running at http://${config.server_host}:${config.server_port}/`);

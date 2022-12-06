@@ -21,7 +21,7 @@ async function getUser(req, res) {
     connection.query(`
     SELECT *
     FROM Users
-    WHERE id == ${req.query.id}
+    WHERE id = ${req.query.id}
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -56,7 +56,7 @@ async function getFollows(req, res) {
     SELECT *
     FROM Follow f
     JOIN Artists a ON f.artistId = a.id
-    WHERE f.userId == ${req.query.id}
+    WHERE f.userId = ${req.query.id}
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -103,7 +103,7 @@ async function getReservations(req, res) {
     SELECT *
     FROM Reservation r
     JOIN Events e a ON r.eventId = e.id
-    WHERE r.userId == ${req.query.id}
+    WHERE r.userId = ${req.query.id}
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -149,7 +149,7 @@ async function getArtist(req, res) {
     connection.query(`
     SELECT *
     FROM Artists
-    WHERE id == ${req.query.id}
+    WHERE id = ${req.query.id}
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -179,7 +179,7 @@ async function getSongs(req, res) {
     connection.query(`
     SELECT *
     FROM Songs
-    WHERE artist_id == ${req.query.id}
+    WHERE TRIM(LOWER(name)) LIKE '%TRIM(LOWER(${req.query.name}))%'
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -196,7 +196,7 @@ async function getEvent(req, res) {
     FROM Events e
     JOIN Venues v
     ON e.venues = v.id
-    WHERE e.id == ${req.query.id}
+    WHERE e.id = ${req.query.id}
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -226,7 +226,7 @@ async function getVenue(req, res) {
     connection.query(`
     SELECT *
     FROM Venues
-    WHERE id == ${req.query.id}
+    WHERE id = ${req.query.id}
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -252,13 +252,30 @@ async function getVenuesByName(req, res) {
     });
 }
 
-//Route 1 for Homepage: Get top 100 artists with the most events
+//Route 1 for Homepage: Get top N artists with the most popularity
 async function getPopularArtists(req, res) {
-    connection.query(`SELECT a.name, p.artistId, COUNT(*) AS event_num
+    connection.query(`
+    SELECT *
+    FROM Artists
+    LIMIT ${req.query.N}`, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+            res.json({ error: error })
+        } else if (results) {
+            res.json({ results: results })
+        }
+    });
+}
+
+//Route 1 for Homepage: Get top N artists with the most events
+async function getArtistsByNumEvents(req, res) {
+    connection.query(`
+    SELECT a.name, p.artistId, COUNT(*) AS event_num
     FROM Participation p
     JOIN Artists a ON a.id = p.artistId
     GROUP BY p.artistId
-    ORDER BY event_num DESC`, function (error, results, fields) {
+    ORDER BY event_num DESC
+    LIMIT ${req.query.N}`, function (error, results, fields) {
         if (error) {
             console.log(error)
             res.json({ error: error })
@@ -367,22 +384,8 @@ async function rankArtistByEventCounts(req, res) {
         FROM Participation 
         GROUP BY artistId)
         SELECT A.name, A.images, A.genres, A.popularity, T.numEvents
-        FROM Artists A JOIN TEMP T ON T.artistId = A.id`, function (error, results, fields) {
-
-        if (error) {
-            console.log(error)
-            res.json({ error: error })
-        } else if (results) {
-            res.json({ results: results })
-        }
-    });
-}
-
-async function getArtistByName(req, res) {
-    const artistName = req.query.Name ? req.query.Name: ''
-    connection.query(`SELECT *
-    FROM Artists A
-    WHERE name LIKE '%${artistName}%'`, function (error, results, fields) {
+        FROM Artists A JOIN TEMP T ON T.artistId = A.id
+        ORDER BY numEvents`, function (error, results, fields) {
 
         if (error) {
             console.log(error)
@@ -394,11 +397,11 @@ async function getArtistByName(req, res) {
 }
 
 async function getArtistSongs(req, res) {
-    const artistName = req.query.Name ? req.query.Name: ''
+    const artistId = req.params.artist ? req.params.artist: ''
     connection.query(`SELECT S.id, S.name, S.uri
         FROM Songs S
         JOIN Artists A ON A.Id = S.ArtistId
-        WHERE A.name LIKE '%${artistName}%'
+        WHERE A.id = ${artistId}
         `, function (error, results, fields) {
 
             if (error) {
@@ -411,12 +414,13 @@ async function getArtistSongs(req, res) {
 }
 
 async function getArtistEvents(req, res){
-    const artistName = req.query.Name ? req.query.Name: ''
+    const artistId = req.params.artist ? req.params.artist: ''
     connection.query(`SELECT E.id, E.name, E.date, E.time, E.images, E.priceFrom, E.priceTo, E.venues
     FROM Artists A 
     JOIN Participation P ON A.id = P.artistId 
     JOIN Events E ON E.id = P.eventID
-    WHERE A.name LIKE '%${artistName}%'`, function (error, results, fields) {
+    WHERE A.id = ${artistId}
+    `, function (error, results, fields) {
 
         if (error) {
             console.log(error)
@@ -452,12 +456,11 @@ module.exports = {
     unreserveEvent,
 
     getPopularArtists,
+    getArtistsByNumEvents,
     getUpcomingEvents,
-    // getEventById,
     search_events,
-    // getArtistById,
+
     rankArtistByEventCounts,
-    getArtistByName,
     getArtistSongs,
     getArtistEvents
 }
