@@ -53,7 +53,7 @@ async function createNewUser(req, res) {
 
 async function getFollows(req, res) {
     connection.query(`
-    SELECT *
+    SELECT f.userId, f.artistId, a.name, a.images, a.popularity
     FROM Follow f
     JOIN Artists a ON f.artistId = a.id
     WHERE f.userId = ${req.query.id}
@@ -100,9 +100,12 @@ async function unfollowArtist(req, res) {
 
 async function getReservations(req, res) {
     connection.query(`
-    SELECT *
+    SELECT r.timePlaced, r.userId, r.eventId, 
+    e.name, e.date, e.time, v.name,
+    v.address, v.city, v.state, v.country, v.postalCode
     FROM Reservation r
-    JOIN Events e a ON r.eventId = e.id
+    JOIN Events e ON r.eventId = e.id
+    JOIN Venues v ON e.venues = v.id
     WHERE r.userId = ${req.query.id}
     `, function (error, results, fields) {
         if (error) {
@@ -164,7 +167,7 @@ async function getArtistsByName(req, res) {
     connection.query(`
     SELECT *
     FROM Artists
-    WHERE name LIKE '%${req.query.name}%'
+    WHERE TRIM(LOWER(name)) LIKE TRIM(LOWER('%${req.query.name}%'))
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -179,7 +182,7 @@ async function getSongs(req, res) {
     connection.query(`
     SELECT *
     FROM Songs
-    WHERE TRIM(LOWER(name)) LIKE '%TRIM(LOWER(${req.query.name}))%'
+    WHERE TRIM(LOWER(name)) LIKE TRIM(LOWER('%${req.query.name}%'))
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -211,7 +214,7 @@ async function getEventsByName(req, res) {
     connection.query(`
     SELECT *
     FROM Events
-    WHERE TRIM(LOWER(name)) LIKE '%TRIM(LOWER(${req.query.name}))%'
+    WHERE TRIM(LOWER(name)) LIKE TRIM(LOWER('%${req.query.name}%'))
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -241,7 +244,7 @@ async function getVenuesByName(req, res) {
     connection.query(`
     SELECT *
     FROM Venues
-    WHERE TRIM(LOWER(name)) LIKE '%TRIM(LOWER(${req.query.name}))%'
+    WHERE TRIM(LOWER(name)) LIKE TRIM(LOWER('%${req.query.name}%'))
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -270,11 +273,11 @@ async function getPopularArtists(req, res) {
 //Route 1 for Homepage: Get top N artists with the most events
 async function getArtistsByNumEvents(req, res) {
     connection.query(`
-    SELECT a.name, p.artistId, COUNT(*) AS event_num
+    SELECT a.name, p.artistId, COUNT(*) AS event_num, popularity
     FROM Participation p
     JOIN Artists a ON a.id = p.artistId
     GROUP BY p.artistId
-    ORDER BY event_num DESC
+    ORDER BY event_num DESC, popularity DESC
     LIMIT ${req.query.N}`, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -289,7 +292,8 @@ async function getArtistsByNumEvents(req, res) {
 async function getUpcomingEvents(req, res) {
     connection.query(`SELECT id, name, date
     FROM Events
-    WHERE DATEDIFF(CURDATE(), date) <= 30 AND DATEDIFF(CURDATE(), date) >= 0
+    WHERE DATEDIFF(CURDATE(), date) <= 30 
+    AND DATEDIFF(CURDATE(), date) >= 0
     ORDER BY date ASC;`, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -336,7 +340,8 @@ async function search_events(req, res) {
     connection.query(`SELECT E.name as EventName, images, priceFrom, priceTo, date, time, address, city, state, postalCode, country
         FROM Events E 
         JOIN Venues V ON E.venues = V.id
-        WHERE country LIKE '%${country}%' AND E.name LIKE '%${eventName}%' 
+        WHERE TRIM(LOWER(country)) LIKE TRIM(LOWER('%${country}%')) 
+        AND TRIM(LOWER(E.name)) LIKE TRIM(LOWER('%${eventName}%')) 
             AND DATEDIFF(CURDATE(), date) <= 30 AND DATEDIFF(CURDATE(), date) >= 0
         ORDER BY date ASC`, function (error, results, fields) {
 

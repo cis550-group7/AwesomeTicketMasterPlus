@@ -56,22 +56,22 @@ app.get('/songs', routes.getSongs)
 // Route 15 - Description: For Homepage: Returns top 100 artists with the most events
 app.get('/artists/topPopular', routes.getPopularArtists)
 
-// Route 15 - Description: For Homepage: Returns top 100 artists with the most events
+// Route 16 - Description: For Homepage: Returns top 100 artists with the most events
 app.get('/artists/mostEvents', routes.getArtistsByNumEvents)
 
-// Route 16 - Description: for Homepage: Returns upcoming events in 30 days 
+// Route 17 - Description: for Homepage: Returns upcoming events in 30 days 
 app.get('/events/upcoming', routes.getUpcomingEvents)
 
-// Route 17 - Description: Returns an array of selected attributes for upcoming events in 30 days that match the search query; rank events by dates
+// Route 18 - Description: Returns an array of selected attributes for upcoming events in 30 days that match the search query; rank events by dates
 app.get('/events/search', routes.search_events)
 
-// Route 18 - Description: Returns an array of selected attributes for artist; rank artists by event counts
+// Route 19 - Description: Returns an array of selected attributes for artist; rank artists by event counts
 app.get('/rank', routes.rankArtistByEventCounts)
 
-// Route 19 - Description: Search songs by the provided artist name 
+// Route 20 - Description: Search songs by the provided artist name 
 app.get('/:artist/songs', routes.getArtistSongs)
 
-// Route 20 - Description: Search events participated by a given artist
+// Route 21 - Description: Search events participated by a given artist
 app.get('/:artist/events', routes.getArtistEvents)
 
 app.listen(config.server_port, () => {
