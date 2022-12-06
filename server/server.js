@@ -12,7 +12,7 @@ const app = express();
 app.use(cors({ credentials: true, origin: ['http://localhost:3000'] }));
 
 // Route 1 - register as GET 
-app.get('/hello', routes.hello)
+app.get('/users', routes.getuser)
 
 // Route 2 - register as GET 
 app.get('/jersey/:choice', routes.jersey)
