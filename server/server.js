@@ -11,33 +11,68 @@ const app = express();
 // whitelist localhost 3000
 app.use(cors({ credentials: true, origin: ['http://localhost:3000'] }));
 
-// Route 1 - register as GET 
-app.get('/hello', routes.hello)
+// Route 1 - Description: Returns a row of users
+app.get('/users', routes.getUser)
 
-// Route 2 - register as GET 
-app.get('/jersey/:choice', routes.jersey)
+// Route 2 - Description: Create a user with the request body information
+app.post('/user/', routes.createNewUser)
 
-// Route 3 - register as GET 
-app.get('/matches/:league', routes.all_matches)
+// Route 3 - Description: Returns an artist with the provided id 
+app.get('/artist', routes.getArtist)
 
-// Route 4 - register as GET 
-app.get('/players', routes.all_players)
+// Route 4 - Description: Returns a list of artists through fuzzy search by name. For example, Tayler Swift will be included in the response with input “swift”. 
+app.get('/artists/', routes.getArtistsByName)
 
-// Route 5 - register as GET 
-app.get('/match', routes.match)
+// Route 5 - Description: Returns an event with the provided id 
+app.get('/event', routes.getEvent)
 
-// Route 6 - register as GET 
-app.get('/player', routes.player)
+// Route 6 - Description: Returns a list of events through fuzzy search by name.
+app.get('/events/', routes.getEventsByName)
 
-// Route 7 - register as GET 
-app.get('/search/matches', routes.search_matches)
+// Route 7 - Description: Returns a venue with the provided id
+app.get('/venue', routes.getVenue)
 
-// Route 8 - register as GET 
-app.get('/search/players', routes.search_players)
+// Route 8 - Description: Returns a list of venues through fuzzy search by name.
+app.get('/venues/', routes.getVenuesByName)
 
+// Route 9 - Description: Returns a list of artists that the provided user is following
+app.get('/follows', routes.getFollows)
 
+// Route 10 - Description: A user follows an artist
+app.post('/follow/', routes.followArtist)
 
+// Route 11 - Description: Returns a user’s reserved events 
+app.get('/reservations', routes.getReservations)
 
+// Route 12 - Description: A user reserves an event 
+app.post('/reservation/', routes.reserveEvent)
+
+// Route 13 - Description: A user cancels an event 
+app.delete('/reservation/', routes.unreserveEvent)
+
+// Route 14 - Description: Returns a song with the provided id
+app.get('/song', routes.getSongs)
+
+// Route 15 - Description: For Homepage: Returns top 100 artists with the most events
+app.get('/topArtists/', routes.getPopularArtists)
+
+// Route 16 - Description: for Homepage: Returns upcoming events in 30 days 
+app.get('/upcomingEvents/', routes.getUpcomingEvents)
+
+// Route 17 - Description: Returns an array of selected attributes for upcoming events in 30 days that match the search query; rank events by dates
+app.get('/search/events', routes.search_events)
+
+// Route 18 - Description: Returns an array of selected attributes for artist; rank artists by event counts
+app.get('/artists/rank', routes.rankArtistByEventCounts)
+
+// Route 19 - Description: Search artists by name 
+app.get('/artist', routes.getArtistByName)
+
+// Route 20 - Description: Search songs by the provided artist name 
+app.get('/artist/songs', routes.getArtistSongs)
+
+// Route 21 - Description: Search events participated by a given artist
+app.get('/artist/events', routes.getArtistEvents)
 
 app.listen(config.server_port, () => {
     console.log(`Server running at http://${config.server_host}:${config.server_port}/`);
