@@ -6,7 +6,7 @@ import {
 } from 'antd'
 
 import MenuBar from '../components/MenuBar';
-import { getAllMatches, getAllPlayers } from '../fetcher'
+import { getUpcomingEvents, getPopularArtists, getArtistsByNumEvents} from '../fetcher'
 const { Column, ColumnGroup } = Table;
 const { Option } = Select;
 
