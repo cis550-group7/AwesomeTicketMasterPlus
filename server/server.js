@@ -69,10 +69,10 @@ app.get('/events/search', routes.search_events)
 app.get('/rank', routes.rankArtistByEventCounts)
 
 // Route 20 - Description: Search songs by the provided artist name 
-app.get('/:artist/songs', routes.getArtistSongs)
+app.get('/songs/:artist', routes.getArtistSongs)
 
 // Route 21 - Description: Search events participated by a given artist
-app.get('/:artist/events', routes.getArtistEvents)
+app.get('/events/:artist', routes.getArtistEvents)
 
 app.listen(config.server_port, () => {
     console.log(`Server running at http://${config.server_host}:${config.server_port}/`);
