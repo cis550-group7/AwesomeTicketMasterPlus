@@ -11,11 +11,16 @@ class MenuBar extends React.Component {
     render() {
         return(
             <Navbar type="dark" theme="primary" expand="md">
-        <NavbarBrand href="/">CIS 550 TicketmasterPlus</NavbarBrand>
+        <NavbarBrand href="/">CIS 550 Projects</NavbarBrand>
           <Nav navbar>
           <NavItem>
               <NavLink active href="/">
                 Home
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink active href="/users">
+                Users
               </NavLink>
             </NavItem>
             <NavItem>
