@@ -25,17 +25,17 @@ ReactDOM.render(
 								<HomePage />
 							)}/>
         <Route exact
-							path="/users"
+							path="/user"
 							render={() => (
 								<UserPage />
 							)}/>
         <Route exact
-							path="/artists"
+							path="/artist"
 							render={() => (
 								<ArtistPage />
 							)}/>
         <Route exact
-							path="/events"
+							path="/event"
 							render={() => (
 								<EventPage />
 							)}/>
