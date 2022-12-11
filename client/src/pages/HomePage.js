@@ -13,35 +13,36 @@ const { Option } = Select;
 
 const playerColumns = [
   {
-    title: 'Id',
-    dataIndex: 'Id',
-    key: 'Id',
-    sorter: (a, b) => a.Id - b.Id
+    title: 'id',
+    dataIndex: 'id',
+    key: 'id',
+    sorter: (a, b) => a.id - b.id
   },
   {
     title: 'Name',
-    dataIndex: 'Name',
-    key: 'Name',
-    sorter: (a, b) => a.Name.localeCompare(b.Name),
-    render: (text, row) => <a href={`/players?id=${row.PlayerId}`}>{text}</a>
+    dataIndex: 'name',
+    key: 'name',
+    sorter: (a, b) => a.name.localeCompare(b.name),
+    render: (text, row) => <a href={`/artist?id=${row.id}`}>{text}</a>
   },
   {
-    title: 'Generes',
-    dataIndex: 'Generes',
-    key: 'Generes',
-    sorter: (a, b) => a.Generes.localeCompare(b.Generes)
+    title: 'Genres',
+    dataIndex: 'genres',
+    key: 'genres',
+    sorter: (a, b) => a.genres.localeCompare(b.genres)
   },
   {
-    title: 'External_urls',
-    dataIndex: 'External_urls',
-    key: 'External_urls',
-    sorter: (a, b) => a.External_urls.localeCompare(b.External_urls)
+    title: 'Spotify Page',
+    dataIndex: 'external_urls',
+    key: 'external_urls',
+    sorter: (a, b) => a.external_urls.localeCompare(b.external_urls),
+    //render: (text, row) => <a href={`${row.external_urls.slice(12, -2)}`}>{text}</a>
   },
   {
     title: 'Popularity',
-    dataIndex: 'Popularity',
-    key: 'Popularity',
-    sorter: (a, b) => a.Popularity - b.Popularity
+    dataIndex: 'popularity',
+    key: 'popularity',
+    sorter: (a, b) => a.popularity - b.popularity
   }
 ];
 
@@ -67,19 +68,21 @@ class HomePage extends React.Component {
     window.location = `/matches?id=${matchId}`
   }
 
-  leagueOnChange(value) {
-    getAllMatches(null, null, value).then(res => {
+
+  leagueOnChange() {
+    getUpcomingEvents().then(res => {
       this.setState({ matchesResults: res.results })
     })
   }
 
   componentDidMount() {
-    getAllMatches(null, null, 'D1').then(res => {
+    getUpcomingEvents().then(res => {
+      console.log(res.results)
       this.setState({ matchesResults: res.results })
     })
 
-    getAllPlayers().then(res => {
-      console.log(res.results)
+    getPopularArtists(100).then(res => {
+      //console.log(res.results)
       this.setState({ playersResults: res.results })
     })
 
@@ -94,7 +97,7 @@ class HomePage extends React.Component {
         <MenuBar />
         <div style={{ width: '70vw', margin: '0 auto', marginTop: '5vh' }}>
           <h3>Top 100 Artists</h3>
-          <Table dataSource={this.state.playersResults} columns={playerColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }}/>
+          <Table dataSource={this.state.playersResults} columns={playerColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 10, showQuickJumper:true }}/>
         </div>
         <div style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }}>
           <h3>Upcoming Events</h3>
@@ -107,17 +110,17 @@ class HomePage extends React.Component {
     return {
       onClick: event => {this.goToMatch(record.MatchId)}, // clicking a row takes the user to a detailed view of the match in the /matches page using the MatchId parameter  
     };
-  }} dataSource={this.state.matchesResults} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }}>
-            <ColumnGroup title="Teams">
-              <Column title="Home" dataIndex="Home" key="Home" sorter= {(a, b) => a.Home.localeCompare(b.Home)}/>
-              <Column title="Away" dataIndex="Away" key="Away" sorter= {(a, b) => a.Away.localeCompare(b.Away)}/>
+  }} dataSource={this.state.matchesResults} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 10, showQuickJumper:true }}>
+            <Column title="id" dataIndex="id" key="id" sorter= {(a, b) => a.id - b.id}/>
+            <Column title="Name" dataIndex="name" key="name" sorter= {(a, b) => a.name.localeCompare(b.name)}/>
+            <Column title="Ticketmaster Page" dataIndex="url" key="url" sorter= {(a, b) => a.name.localeCompare(b.name)}/>
+            <ColumnGroup title="Prices">
+              <Column title="From" dataIndex="priceFrom" key="priceFrom" sorter= {(a, b) => a.priceFrom - b.priceFrom}/>
+              <Column title="To" dataIndex="priceTo" key="priceTo" sorter= {(a, b) => a.priceTo - b.priceTo}/>
             </ColumnGroup>
-            <ColumnGroup title="Goals">
-              <Column title="Home Goals" dataIndex="HomeGoals" key="HomeGoals" sorter= {(a, b) => a.HomeGoals - b.HomeGoals}/>
-              <Column title="Away Goals" dataIndex="AwayGoals" key="AwayGoals" sorter= {(a, b) => a.AwayGoals - b.AwayGoals}/>
-            </ColumnGroup>
-              <Column title="Date" dataIndex="Date" key="Date"/>
-              <Column title="Time" dataIndex="Time" key="Time"/>
+            <Column title="Date" dataIndex="date" key="date"/>
+            <Column title="Time" dataIndex="time" key="time"/>
+            <Column title="Venues" dataIndex="venues" key="venues"/>
           </Table>
 
         </div>

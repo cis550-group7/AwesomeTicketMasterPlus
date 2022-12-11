@@ -1,3 +1,5 @@
+/*
+
 import React from 'react';
 import { Form, FormInput, FormGroup, Button, Card, CardBody, CardTitle, Progress } from "shards-react";
 
@@ -151,7 +153,6 @@ class PlayersPage extends React.Component {
                             <label>Nationality</label>
                             <FormInput placeholder="Nationality" value={this.state.nationalityQuery} onChange={this.handleNationalityQueryChange} />
                         </FormGroup></Col>
-                        {/* TASK 26: Create a column for Club, using the elements and style we followed in the above two columns. Use the onChange method (handleClubQueryChange)  */}
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Club</label>
                             <FormInput placeholder="Club" value={this.state.clubQuery} onChange={this.handleClubQueryChange} />
@@ -163,7 +164,6 @@ class PlayersPage extends React.Component {
                             <label>Rating</label>
                             <Slider range defaultValue={[50, 100]} onChange={this.handleRatingChange} />
                         </FormGroup></Col>
-                        {/* TASK 27: Create a column with a label and slider in a FormGroup item for filtering by Potential. See the column above for reference and use the onChange method (handlePotentialChange)  */}
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Potential</label>
                             <Slider range defaultValue={[50, 100]} onChange={this.handlePotentialChange} />
@@ -178,7 +178,6 @@ class PlayersPage extends React.Component {
 
                 </Form>
                 <Divider />
-                {/* TASK 24: Copy in the players table from the Home page, but use the following style tag: style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }} - this should be one line of code! */}
                 <div style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }}>
                     <h3>Players</h3>
                     <Table dataSource={this.state.playersResults} columns={playerColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }}/>
@@ -217,7 +216,6 @@ class PlayersPage extends React.Component {
                                 <Col>
                                 Age: {this.state.selectedPlayerDetails.Age}
                                 </Col>
-                                {/* TASK 28: add two more columns here for Height and Weight, with the appropriate labels as above */}
                                 <Col>
                                 Height: {this.state.selectedPlayerDetails.Height}
                                 </Col>
@@ -238,7 +236,6 @@ class PlayersPage extends React.Component {
                                 <Col>
                                 Release Clause: {this.state.selectedPlayerDetails.ReleaseClause}
                                 </Col>
-                                {/* TASK 29: Create 2 additional columns for the attributes 'Wage' and 'Contract Valid Until' (use spaces between the words when labelling!) */}
                                 <Col>
                                 Wage: {this.state.selectedPlayerDetails.Wage}
                                 </Col>
@@ -257,19 +254,16 @@ class PlayersPage extends React.Component {
                                 <h6>Skill</h6>
                                 <Rate disabled defaultValue={this.state.selectedPlayerDetails.Skill} />
                                 <h6>Reputation</h6>
-                                {/* TASK 30: create a star rating component for 'InternationalReputation'. Make sure you use the 'disabled' option as above to ensure it is read-only*/}
                                 <Rate disabled defaultValue={this.state.selectedPlayerDetails.InternationalReputation} />
                                 <Divider/>
                                 <h6>Best Rating</h6>
                                 <Progress style={{ width: '20vw'}} value={this.state.selectedPlayerDetails.BestOverallRating} >{this.state.selectedPlayerDetails.BestOverallRating}</Progress>
-                                {/* TASK 31: create the headings and progress bars for 'Potential' and 'Rating'. Use the same style as the one above for 'Best Rating'.*/}
                                 <h6>Potential</h6>
                                 <Progress style={{ width: '20vw'}} value={this.state.selectedPlayerDetails.Potential} >{this.state.selectedPlayerDetails.Potential}</Progress>   
                                 <h6>Rating</h6>
                                 <Progress style={{ width: '20vw'}} value={this.state.selectedPlayerDetails.Rating} >{this.state.selectedPlayerDetails.Rating}</Progress> 
                             </Col >
                                 <Col  push={2} flex={2}>
-                                {/*TASK 32: In case the player is a GK, show a radar chart (replacing 'null' below) with the labels: Agility, Ball Control, Passing, Positioning, Stamina, Strength */}
                                     {this.state.selectedPlayerDetails.BestPosition === 'GK'?
                                     <RadarChart
                                         data={[this.state.selectedPlayerDetails]}
@@ -317,3 +311,4 @@ class PlayersPage extends React.Component {
 
 export default PlayersPage
 
+*/

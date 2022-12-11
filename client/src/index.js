@@ -10,7 +10,6 @@ import HomePage from './pages/HomePage';
 import UserPage from './pages/UserPage';
 import ArtistPage from './pages/ArtistPage';
 import EventPage from './pages/EventPage';
-import SongPage from './pages/SongPage';
 import 'antd/dist/antd.css';
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -39,11 +38,6 @@ ReactDOM.render(
 							path="/events"
 							render={() => (
 								<EventPage />
-							)}/>
-        <Route exact
-							path="/songs"
-							render={() => (
-								<SongPage />
 							)}/>
       </Switch>
     </Router>

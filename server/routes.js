@@ -290,7 +290,7 @@ async function getArtistsByNumEvents(req, res) {
 
 //Route 2 for Homepage: Upcoming events in 30 days
 async function getUpcomingEvents(req, res) {
-    connection.query(`SELECT id, name, date
+    connection.query(`SELECT *
     FROM Events
     WHERE DATEDIFF(CURDATE(), date) <= 30 
     AND DATEDIFF(CURDATE(), date) >= 0
