@@ -290,9 +290,10 @@ async function getArtistsByNumEvents(req, res) {
 
 //Route 2 for Homepage: Upcoming events in 30 days
 async function getUpcomingEvents(req, res) {
-    connection.query(`SELECT *
-    FROM Events
-    WHERE DATEDIFF(CURDATE(), date) <= 30 
+    connection.query(`SELECT e.id, e.name, e.url, ROUND(priceFrom) AS priceFrom, ROUND(priceTo) AS priceTo, DATE(date) AS date, time, v.name AS venue
+    FROM Events e
+    JOIN Venues v on e.venues = v.id
+    WHERE DATEDIFF(CURDATE(), date) <= 30
     AND DATEDIFF(CURDATE(), date) >= 0
     ORDER BY date ASC;`, function (error, results, fields) {
         if (error) {
