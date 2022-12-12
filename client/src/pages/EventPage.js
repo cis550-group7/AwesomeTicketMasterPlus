@@ -1,5 +1,4 @@
 /*
-
 import React from 'react';
 import { Form, FormInput, FormGroup, Button, Card, CardBody, CardTitle, Progress } from "shards-react";
 
@@ -18,7 +17,7 @@ import { format } from 'd3-format';
 
 
 import MenuBar from '../components/MenuBar';
-import { getPlayerSearch, getPlayer } from '../fetcher'
+//import { getPlayerSearch, getPlayer } from '../fetcher'
 const wideFormat = format('.3r');
 
 const playerColumns = [
@@ -42,7 +41,6 @@ const playerColumns = [
         sorter: (a, b) => a.Rating - b.Rating
 
     },
-    // TASK 19: copy over your answers for tasks 7 - 9 to add columns for potential, club, and value
     {
         title: 'Potential',
         dataIndex: 'Potential',
@@ -63,7 +61,7 @@ const playerColumns = [
 ];
 
 
-class PlayersPage extends React.Component {
+class EventPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -95,12 +93,10 @@ class PlayersPage extends React.Component {
     }
 
     handleClubQueryChange(event) {
-        // TASK 20: update state variables appropriately. See handleNameQueryChange(event) for reference
         this.setState({ clubQuery: event.target.value })
     }
 
     handleNationalityQueryChange(event) {
-        // TASK 21: update state variables appropriately. See handleNameQueryChange(event) for reference
         this.setState({ nationalityQuery: event.target.value })
     }
 
@@ -110,7 +106,6 @@ class PlayersPage extends React.Component {
     }
 
     handlePotentialChange(value) {
-        // TASK 22: parse value and update state variables appropriately. See handleRatingChange(value) for reference
         this.setState({ potLowQuery: value[0] })
         this.setState({ potHighQuery: value[1] })
     }
@@ -119,7 +114,6 @@ class PlayersPage extends React.Component {
 
     updateSearchResults() {
 
-        //TASK 23: call getPlayerSearch and update playerResults in state. See componentDidMount() for a hint
         getPlayerSearch(this.state.nameQuery, this.state.nationalityQuery, this.state.clubQuery, this.state.ratingHighQuery, this.state.ratingLowQuery, this.state.potHighQuery, this.state.potLowQuery, null, null).then(res => {
             this.setState({ playersResults: res.results })
         })
@@ -130,7 +124,6 @@ class PlayersPage extends React.Component {
             this.setState({ playersResults: res.results })
         })
 
-        // TASK 25: call getPlayer with the appropriate parameter and set update the correct state variable. 
         // See the usage of getMatch in the componentDidMount method of MatchesPage for a hint! 
         getPlayer(this.state.selectedPlayerId).then(res => {
             this.setState({ selectedPlayerDetails: res.results[0] })
@@ -309,6 +302,5 @@ class PlayersPage extends React.Component {
     }
 }
 
-export default PlayersPage
-
+export default EventPage
 */
