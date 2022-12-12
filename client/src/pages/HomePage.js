@@ -36,7 +36,7 @@ const playerColumns = [
     dataIndex: 'external_urls',
     key: 'external_urls',
     sorter: (a, b) => a.external_urls.localeCompare(b.external_urls),
-    //render: (text, row) => <a href={`${row.external_urls.slice(12, -2)}`}>{text}</a>
+    render: (text, row) => <a href={`//${row.external_urls.slice(20, -2)}`}>{text}</a>
   },
   {
     title: 'Popularity',
@@ -101,10 +101,6 @@ class HomePage extends React.Component {
         </div>
         <div style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }}>
           <h3>Upcoming Events</h3>
-          <Select defaultValue="D1" style={{ width: 120 }} onChange={this.leagueOnChange}>
-            <Option value="D1">Bundesliga</Option>
-            <Option value="SP1">La Liga</Option>
-          </Select>
           
           <Table onRow={(record, rowIndex) => {
     return {
@@ -112,15 +108,15 @@ class HomePage extends React.Component {
     };
   }} dataSource={this.state.matchesResults} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 10, showQuickJumper:true }}>
             <Column title="id" dataIndex="id" key="id" sorter= {(a, b) => a.id - b.id}/>
-            <Column title="Name" dataIndex="name" key="name" sorter= {(a, b) => a.name.localeCompare(b.name)}/>
-            <Column title="Ticketmaster Page" dataIndex="url" key="url" sorter= {(a, b) => a.name.localeCompare(b.name)}/>
-            <ColumnGroup title="Prices">
+            <Column title="Name" dataIndex="name" key="name" sorter= {(a, b) => a.name.localeCompare(b.name)}     render={ (text, row) => <a href={`/event?id=${row.id}`}>{text}</a>}/>
+            <Column title="Ticketmaster Page" dataIndex="url" key="url" render={(text, row) => <a href={`//${row.url.slice(8)}`}>{text}</a>} sorter= {(a, b) => a.url.localeCompare(b.url)}/>
+            <ColumnGroup title="Prices ($)">
               <Column title="From" dataIndex="priceFrom" key="priceFrom" sorter= {(a, b) => a.priceFrom - b.priceFrom}/>
               <Column title="To" dataIndex="priceTo" key="priceTo" sorter= {(a, b) => a.priceTo - b.priceTo}/>
             </ColumnGroup>
-            <Column title="Date" dataIndex="date" key="date"/>
-            <Column title="Time" dataIndex="time" key="time"/>
-            <Column title="Venues" dataIndex="venues" key="venues"/>
+            <Column title="Date" dataIndex="date" key="date" sorter= {(a, b) => a.date.localeCompare(b.date)}/>
+            <Column title="Time" dataIndex="time" key="time" sorter= {(a, b) => a.time.localeCompare(b.time)}/>
+            <Column title="Venue" dataIndex="venue" key="venue"/>
           </Table>
 
         </div>
@@ -133,4 +129,3 @@ class HomePage extends React.Component {
 }
 
 export default HomePage
-

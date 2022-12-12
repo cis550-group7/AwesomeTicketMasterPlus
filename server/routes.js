@@ -403,7 +403,7 @@ async function rankArtistByEventCounts(req, res) {
 
 async function getArtistSongs(req, res) {
     const artistId = req.params.artist ? req.params.artist: ''
-    connection.query(`SELECT S.id, S.name, S.uri
+    connection.query(`SELECT S.id, S.name, S.external_urls, S.duration_ms
         FROM Songs S
         JOIN Artists A ON A.Id = S.ArtistId
         WHERE A.id = ${artistId}

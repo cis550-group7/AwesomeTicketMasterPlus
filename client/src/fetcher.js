@@ -131,7 +131,12 @@ const getArtistEvents = async (artist) => {
     return res.json()
 }
 
-
+const getArtistSearch = async (id, name, genres, external_urls, popularity) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/players?Name=${id}&Nationality=${name}&Club=${genres}&RatingLow=${external_urls}&RatingHigh=${popularity}}`, {
+        method: 'GET',
+    })
+    return res.json()
+}
 export {
     getUser,
     getFollows,
@@ -149,5 +154,6 @@ export {
     search_events,
     rankArtistByEventCounts,
     getArtistSongs,
-    getArtistEvents
+    getArtistEvents,
+    getArtistSearch
 }
