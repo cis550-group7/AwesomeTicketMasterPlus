@@ -77,7 +77,6 @@ class HomePage extends React.Component {
 
   componentDidMount() {
     getUpcomingEvents().then(res => {
-      console.log(res.results)
       this.setState({ matchesResults: res.results })
     })
 

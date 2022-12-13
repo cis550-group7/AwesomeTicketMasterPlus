@@ -3,12 +3,12 @@ import {
     Navbar,
     NavbarBrand,
     Nav,
-    NavItem,
-    NavLink
+    NavItem
   } from "shards-react";
+  import { NavLink } from "react-router-dom";
 
   import {useSelector, useDispatch} from 'react-redux'
-  import {updateCurrentUser, selectCurrentUser} from '../pages/currentUserSlice'
+  import {updateCurrentUser, selectCurrentUser, logoutAction} from '../pages/currentUserSlice'
 
 function User(props){
     const stateCurrentUser = useSelector(selectCurrentUser);
@@ -19,43 +19,54 @@ function User(props){
   }
 
   function MenuBar() {
+    const dispatch = useDispatch();
     const stateCurrentUser = useSelector(selectCurrentUser);
+
+    const handleLinkOnClick= (e) => {
+      dispatch(logoutAction());
+      alert("Logged out")
+    };
+    
         return (
             <Navbar type="dark" theme="primary" expand="md">
-        <NavbarBrand href="/">Awesome Ticketmaster Plus</NavbarBrand>
+        <NavbarBrand>Awesome Ticketmaster Plus</NavbarBrand>
           <Nav navbar>
           <NavItem>
-              <NavLink active href="/">
+              <NavLink to='/' style={{color: "white", verticalAlign: "sub", paddingRight: "1rem"}}>
                 Home
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink active href="/users">
+              <NavLink to="/users" style={{color: "white", verticalAlign: "sub", paddingRight: "1rem"}}>
                 Users
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink active href="/artists">
+              <NavLink to="/artists" style={{color: "white", verticalAlign: "sub", paddingRight: "1rem"}}>
                 Artists
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink active  href="/events" >
+              <NavLink to="/events" style={{color: "white", verticalAlign: "sub", paddingRight: "1rem"}}>
                 Events
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink active  href="/register" >
+              <NavLink to="/register" style={{color: "white", verticalAlign: "sub", paddingRight: "1rem"}}>
                 Register
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink active  href="/login" >
-                {(stateCurrentUser.id===-1) && "Login"}
-                {!(stateCurrentUser.id===-1) && "Log out"}
-              </NavLink>
+            {(stateCurrentUser.id===-1) && 
+              <NavLink to="/login" style={{color: "white", verticalAlign: "sub", paddingRight: "2rem"}}>
+                Login
+              </NavLink>}
+              {!(stateCurrentUser.id===-1) && 
+              <NavLink to="/login" onClick={handleLinkOnClick} style={{color: "white", verticalAlign: "sub", paddingRight: "2rem"}}>
+                Log out
+              </NavLink>}
             </NavItem>
-            <NavbarBrand href="/" style={{paddingLeft: "2rem"}}>Logged in as: <User /> </NavbarBrand>
+            <NavbarBrand>Logged in as: <User /> </NavbarBrand>
           </Nav>
       </Navbar>
         )
