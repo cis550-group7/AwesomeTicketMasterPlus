@@ -39,7 +39,7 @@ const eventColumns = [
         title: 'City',
         dataIndex: 'city',
         key: 'city',
-        sorter: (a, b) => a.Country.localeCompare(b.Country)
+        sorter: (a, b) => a.city.localeCompare(b.city)
     },
     { 
         title: 'Price From',

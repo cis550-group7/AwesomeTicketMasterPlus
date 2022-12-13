@@ -7,6 +7,9 @@ const routes = require('./routes')
 const config = require('./config.json')
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 
 // whitelist localhost 3000
 app.use(cors({ credentials: true, origin: ['http://localhost:3000'] }));

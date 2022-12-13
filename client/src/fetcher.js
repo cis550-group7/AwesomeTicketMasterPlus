@@ -1,14 +1,30 @@
 import config from './config.json'
 
-const getUser = async (id) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/user?id=${id}`, {
+const getUser = async (username) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/user?username=${username}`, {
         method: 'GET',
     })
     return res.json()
 }
 
-//createNewUser
-
+const createNewUser = async (name, username, password, dob, email) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/user/`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+          },
+        body: JSON.stringify(
+            {
+                name: name,
+                username: username,
+                password: password,
+                dob: dob,
+                email: email
+            }
+        )
+    })
+    return res.json()
+}
 
 const getFollows = async (id) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/follows?id=${id}`, {
@@ -146,6 +162,7 @@ const getArtistSearch = async (id, name, genres, external_urls, popularity) => {
 }
 export {
     getUser,
+    createNewUser,
     getFollows,
     getReservations,
     getArtist,

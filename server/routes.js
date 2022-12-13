@@ -21,7 +21,7 @@ async function getUser(req, res) {
     connection.query(`
     SELECT *
     FROM Users
-    WHERE id = ${req.query.id}
+    WHERE username = ${req.query.username}
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -33,14 +33,15 @@ async function getUser(req, res) {
 }
 
 async function createNewUser(req, res) {
+    console.log(req.body);
     connection.query(`
     INSERT INTO Users (name, username, password, dob, email) 
-    VALUES (
-        ${req.body.name},
-        ${req.body.username},
-        ${req.body.password},
-        ${req.body.dob},
-        ${req.body.email}); 
+        VALUES (
+            ${JSON.stringify(req.body.name)},
+            ${JSON.stringify(req.body.username)},
+            ${JSON.stringify(req.body.password)},
+            ${JSON.stringify(req.body.dob)},
+            ${JSON.stringify(req.body.email)}); 
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -53,7 +54,7 @@ async function createNewUser(req, res) {
 
 async function getFollows(req, res) {
     connection.query(`
-    SELECT f.userId, f.artistId, a.name, a.images, a.popularity
+    SELECT f.userId, a.id, a.name, a.images, genres, popularity, external_urls
     FROM Follow f
     JOIN Artists a ON f.artistId = a.id
     WHERE f.userId = ${req.query.id}
@@ -71,8 +72,8 @@ async function followArtist(req, res) {
     connection.query(`
     INSERT INTO Follow (userId, artistId) 
     VALUES (
-        ${req.body.userId},
-        ${req.body.artistId});
+        ${JSON.stringify(req.body.userId)},
+        ${JSON.stringify(req.body.artistId)});
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -86,8 +87,8 @@ async function followArtist(req, res) {
 async function unfollowArtist(req, res) {
     connection.query(`
     DELETE FROM Follow
-    WHERE userId = ${req.body.userId}
-    AND artistID = ${req.body.artistId};
+    WHERE userId = ${JSON.stringify(req.body.userId)}
+    AND artistID = ${JSON.stringify(req.body.artistId)};
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -100,8 +101,8 @@ async function unfollowArtist(req, res) {
 
 async function getReservations(req, res) {
     connection.query(`
-    SELECT r.timePlaced, r.userId, r.eventId, 
-    e.name, e.date, e.time, v.name,
+    SELECT r.timePlaced, r.userId, r.eventId AS eventId, 
+    e.name AS eventName, e.date, e.time, v.name AS venueName,
     v.address, v.city, v.state, v.country, v.postalCode
     FROM Reservation r
     JOIN Events e ON r.eventId = e.id
@@ -121,8 +122,8 @@ async function reserveEvent(req, res) {
     connection.query(`
     INSERT INTO Reservation (userId, eventId) 
     VALUES (
-        ${req.body.userId},
-        ${req.body.eventId});
+        ${JSON.stringify(req.body.userId)},
+        ${JSON.stringify(req.body.eventId)});
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -136,8 +137,8 @@ async function reserveEvent(req, res) {
 async function unreserveEvent(req, res) {
     connection.query(`
     DELETE FROM Reservations
-    WHERE userId = ${req.body.userId}
-    AND eventId = ${req.body.eventId};
+    WHERE userId = ${JSON.stringify(req.body.userId)}
+    AND eventId = ${JSON.stringify(req.body.eventId)};
     `, function (error, results, fields) {
         if (error) {
             console.log(error)
