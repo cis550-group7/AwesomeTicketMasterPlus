@@ -24,10 +24,10 @@ app.get('/artist', routes.getArtist)
 app.get('/artists', routes.getArtistsByName)
 
 // Route 5 - Description: Returns an event with the provided id 
-app.get('/event', routes.getEvent)
+// app.get('/event', routes.getEvent)
 
 // Route 6 - Description: Returns a list of events through fuzzy search by name.
-app.get('/events', routes.getEventsByName)
+app.get('/events', routes.getEvent)
 
 // Route 7 - Description: Returns a venue with the provided id
 app.get('/venue', routes.getVenue)

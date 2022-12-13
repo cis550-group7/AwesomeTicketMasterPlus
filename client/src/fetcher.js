@@ -54,7 +54,7 @@ const getSongs = async (name) => {
 }
 
 const getEvent = async (id) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/event?id=${id}`, {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/events?id=${id}`, {
         method: 'GET',
     })
     return res.json()
@@ -66,6 +66,13 @@ const getEventsByName = async (name) => {
     })
     return res.json()
 }
+
+// const getEventSearch = async (name, country, artist, price_high, price_low, page, pagesize) => {
+//     var res = await fetch(`http://${config.server_host}:${config.server_port}/events?Name=${name}&Country=${country}&Artist=${artist}`, {
+//         method: 'GET',
+//     })
+//     return res.json()
+// }
 
 const getVenue = async (id) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/venue?id=${id}`, {
@@ -146,6 +153,7 @@ export {
     getSongs,
     getEvent,
     getEventsByName,
+    // getEventSearch,
     getVenue,
     getVenuesByName,
     getPopularArtists,
