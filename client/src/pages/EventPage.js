@@ -9,13 +9,12 @@ import {
     Col,
     Divider,
     Slider,
-    Rate,
-    notification 
+    Rate 
 } from 'antd'
 
 import { NavLink } from "react-router-dom";
 import MenuBar from '../components/MenuBar';
-import { search_events, getEvent, getUpcomingEvents, getReservations, reserveEvent } from '../fetcher'
+import { search_events, getEvent, getUpcomingEvents, getReservations, reserveEvent, unReserveEvent} from '../fetcher'
 import {useSelector, useDispatch} from 'react-redux'
 import {updateCurrentUser, selectCurrentUser, logoutAction} from '../pages/currentUserSlice'
 
@@ -106,37 +105,40 @@ export default function EventPage(){
         const res =  await getEvent(selectedEventId);
         setEventDetails(res.results[0]);
         
-        // const reserved = await getReservations(userId);
-        // const reservedEvents = reserved.results;
-        // for(let i = 0; i < reservedEvents.length; i++){
-        //     const reservedEventId= reservedEvents[i].eventId;
-        //     // postList.push(curPost);
-        //     // console.log(reservedEventId)
-        //     if(reservedEventId==selectedEventId){
-        //         setButtonTxt('Unreserve');
-        //         break;
-        //     } else{
-        //         setButtonTxt('Reserve');
-        //     }
-        // }
+        const reserved = await getReservations(userId);
+        const reservedEvents = reserved.results;
+        for(let i = 0; i < reservedEvents.length; i++){
+            const reservedEventId= reservedEvents[i].eventId;
+            // postList.push(curPost);
+            // console.log(reservedEventId)
+            if(reservedEventId==selectedEventId){
+                setButtonTxt('Unreserve');
+                break;
+            } else{
+                setButtonTxt('Reserve');
+            }
+        }
         // console.log(res);
 
     }
 
     async function handleReserve(){
         try{
-            // const selectedEventId = window.location.search ? window.location.search.substring(1).split('=')[1] : 0
+            const selectedEventId = window.location.search ? window.location.search.substring(1).split('=')[1] : 0
             const response = await reserveEvent(userId, selectedEventId)
-            if(response.success){
-                notification.success({
-                    message: 'Successfully Reserved!',
-                  });
-                  setButtonTxt('Unreserve');
-            } else{
-                notification.error({
-                    description: "Oops! Some errors occurred.",
-                  });
-            }
+            setButtonTxt('Unreserve');
+            alert("Successfully Reserved!"); 
+        } catch(err){
+            return err;
+        }
+    }
+
+    async function handleUnReserve(){
+        try{
+            const selectedEventId = window.location.search ? window.location.search.substring(1).split('=')[1] : 0
+            const response = await unReserveEvent(userId, selectedEventId)
+            setButtonTxt('Reserve');
+            alert("Successfully Unreserved!"); 
         } catch(err){
             return err;
         }
@@ -144,12 +146,12 @@ export default function EventPage(){
 
     useEffect(() => {
         const selectedEventId = window.location.search ? window.location.search.substring(1).split('=')[1] : 0
-        console.log(selectedEventId)
+        // console.log(selectedEventId)
         // setEventId(window.location.search ? window.location.search.substring(1).split('=')[1] : 0);
         updateSearchResults();
         updateSpecificEvent(selectedEventId);
         // initReserve();
-        console.log(selectedEventDetails)
+        // console.log(selectedEventDetails)
       }, [selectedEventDetails])
 
     return (
@@ -195,7 +197,7 @@ export default function EventPage(){
                         <Button 
                           type= 'primary'
                           shape="round" 
-                        //   onClick={handleUnFollow}
+                          onClick={handleUnReserve}
                         >{buttonTxt} </Button>) : (
                           <Button 
                           type= 'primary'

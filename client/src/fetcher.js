@@ -47,7 +47,7 @@ const getReservations = async (id) => {
 //reserveEvent
 const reserveEvent = async (userId, eventId) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/reservation/`, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             "Content-Type": "application/json"
           },
@@ -62,6 +62,22 @@ const reserveEvent = async (userId, eventId) => {
 }
 
 //unreserveEvent
+const unReserveEvent = async (userId, eventId) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/reservation/`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+          },
+        body: JSON.stringify(
+            {
+                userId: userId,
+                eventId: eventId
+            }
+        )
+    })
+    return res.json()
+}
+
 
 const getArtist = async (id) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/artist?id=${id}`, {
@@ -181,6 +197,7 @@ export {
     getFollows,
     getReservations,
     reserveEvent,
+    unReserveEvent,
     getArtist,
     getArtistsByName,
     getSongs,
