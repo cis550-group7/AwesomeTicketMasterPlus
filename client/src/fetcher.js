@@ -45,8 +45,39 @@ const getReservations = async (id) => {
 }
 
 //reserveEvent
+const reserveEvent = async (userId, eventId) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/reservation/`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+          },
+        body: JSON.stringify(
+            {
+                userId: userId,
+                eventId: eventId
+            }
+        )
+    })
+    return res.json()
+}
 
 //unreserveEvent
+const unReserveEvent = async (userId, eventId) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/reservation/`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+          },
+        body: JSON.stringify(
+            {
+                userId: userId,
+                eventId: eventId
+            }
+        )
+    })
+    return res.json()
+}
+
 
 const getArtist = async (id) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/artist?id=${id}`, {
@@ -165,6 +196,8 @@ export {
     createNewUser,
     getFollows,
     getReservations,
+    reserveEvent,
+    unReserveEvent,
     getArtist,
     getArtistsByName,
     getSongs,
@@ -180,5 +213,5 @@ export {
     rankArtistByEventCounts,
     getArtistSongs,
     getArtistEvents,
-    getArtistSearch
+    getArtistSearch,
 }

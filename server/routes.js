@@ -136,7 +136,7 @@ async function reserveEvent(req, res) {
 
 async function unreserveEvent(req, res) {
     connection.query(`
-    DELETE FROM Reservations
+    DELETE FROM Reservation
     WHERE userId = ${JSON.stringify(req.body.userId)}
     AND eventId = ${JSON.stringify(req.body.eventId)};
     `, function (error, results, fields) {
