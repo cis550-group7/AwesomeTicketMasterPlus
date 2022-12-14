@@ -45,6 +45,21 @@ const getReservations = async (id) => {
 }
 
 //reserveEvent
+const reserveEvent = async (userId, eventId) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/reservation/`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json"
+          },
+        body: JSON.stringify(
+            {
+                userId: userId,
+                eventId: eventId
+            }
+        )
+    })
+    return res.json()
+}
 
 //unreserveEvent
 
@@ -165,6 +180,7 @@ export {
     createNewUser,
     getFollows,
     getReservations,
+    reserveEvent,
     getArtist,
     getArtistsByName,
     getSongs,
@@ -180,5 +196,5 @@ export {
     rankArtistByEventCounts,
     getArtistSongs,
     getArtistEvents,
-    getArtistSearch
+    getArtistSearch,
 }
