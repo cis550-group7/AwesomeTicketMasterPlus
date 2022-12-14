@@ -46,7 +46,7 @@ function RegisterPage() {
         <label htmlFor="#email">Email</label>
         <FormInput type="email" id="#email" placeholder="Email" onChange={e => setEmail(e.target.value)}/>
       </FormGroup>
-      <Button type="submit">
+      <Button theme="info" type="submit">
         Register
       </Button>
     </Form>

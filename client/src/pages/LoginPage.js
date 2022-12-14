@@ -65,7 +65,7 @@ function LoginPage() {
         <label htmlFor="#password">Password</label>
         <FormInput type="password" id="password" placeholder="Password" onChange={changeHandler}/>
       </FormGroup>
-      <Button type="submit">
+      <Button theme="info" type="submit">
         Login
       </Button>
     </Form>

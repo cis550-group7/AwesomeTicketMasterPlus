@@ -153,7 +153,7 @@ const songColumns = [
                       
                        
                         <Col flex={2}><FormGroup style={{ width: '10vw' }}>
-                            <Button style={{ marginTop: '4vh' }} onClick={this.updateSearchResults}>Search</Button>
+                            <Button theme="info" style={{ marginTop: '2.5vh' }} onClick={this.updateSearchResults}>Search</Button>
                         </FormGroup></Col>
                     </Row>
                     <br></br>

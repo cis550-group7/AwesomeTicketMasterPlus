@@ -28,7 +28,7 @@ function User(props){
     };
     
         return (
-            <Navbar type="dark" theme="primary" expand="md">
+            <Navbar type="dark" theme="info" expand="md">
         <NavbarBrand>Awesome Ticketmaster Plus</NavbarBrand>
           <Nav navbar>
           <NavItem>
