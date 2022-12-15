@@ -1,7 +1,5 @@
 # AwesomeTicketMasterPlus
 
-The DB is running based on AWS Academy Learner Lab (it runs 4-hour time windows). Therefore, the DB is not always active. 
-
 db_config = {
 
     "username" : "ticketmasterplus",
@@ -14,11 +12,36 @@ db_config = {
     
 }
 
-Datasets:
-https://drive.google.com/drive/folders/13hBqT3HB0lJaQSMd7jMbm9xPDMFBLQsj?usp=share_link
+Demo Video: https://drive.google.com/file/d/1OUYqyp_1BJcoWRlvWqby-qFidN5kr6Hl/view?usp=share_link
 
-API Documentation:
-https://docs.google.com/document/d/1sAm6Kv-MSEahjwk0TIwC0Ag5xMJYfVgCgsEFReK63Io/edit?usp=sharing
+Datasets: https://drive.google.com/drive/folders/13hBqT3HB0lJaQSMd7jMbm9xPDMFBLQsj?usp=share_link
+
+API Documentation: https://docs.google.com/document/d/1sAm6Kv-MSEahjwk0TIwC0Ag5xMJYfVgCgsEFReK63Io/edit?usp=sharing
+
+
+Web Setup:
+
+      Step 1 -- install packages: 
+                                      1. Open terminal and clone our GitHub repo:
+                                      2. "git clone <our repo url>"
+                                      3. In terminal window 1 "cd .../AwesomeTicketMasterPlus/client" 
+                                      4. "npm install --force"
+                                      5. In terminal window 2 "cd .../AwesomeTicketMasterPlus/server" 
+                                      6. "npm install --force"
+                                       
+      Step 2 -- start frontend:  
+                                      1. In terminal window 1, run following commands: 
+                                      2. "npm start"
+                                      
+      Step 3 -- start backend:  
+                                      1. In terminal window 2, run following commands:
+                                      3. "npm start"
+                               
+      Step 4 -- testing the mini app:  
+                                      1. open the browser in step 2 with url: "http://localhost:3000/"
+                                      2. Start playing around this app to your hearts content! 
+                                      3. There are following **notice points** for each features.
+                                      
 
 DB Name: 
 
