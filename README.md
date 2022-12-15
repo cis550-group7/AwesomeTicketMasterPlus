@@ -12,7 +12,7 @@ db_config = {
     
 }
 
-Demo Video: https://drive.google.com/file/d/1OUYqyp_1BJcoWRlvWqby-qFidN5kr6Hl/view?usp=share_link
+Demo Video: https://drive.google.com/file/d/1Lo2PbjsVyIL3xNt9IX5fEmjx5ZvNUlqT/view?usp=share_link
 
 Datasets: https://drive.google.com/drive/folders/13hBqT3HB0lJaQSMd7jMbm9xPDMFBLQsj?usp=share_link
 
