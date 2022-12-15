@@ -294,8 +294,8 @@ async function getUpcomingEvents(req, res) {
     connection.query(`SELECT e.id, e.name, e.url, ROUND(priceFrom) AS priceFrom, ROUND(priceTo) AS priceTo, DATE(date) AS date, time, v.name AS venue
     FROM Events e
     JOIN Venues v on e.venues = v.id
-    WHERE DATEDIFF(CURDATE(), date) <= 30
-    AND DATEDIFF(CURDATE(), date) >= 0
+    WHERE DATEDIFF(date, CURDATE()) <= 30
+    AND DATEDIFF(date, CURDATE()) >= 0
     ORDER BY date ASC;`, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -344,7 +344,7 @@ async function search_events(req, res) {
         JOIN Venues V ON E.venues = V.id
         WHERE TRIM(LOWER(country)) LIKE TRIM(LOWER('%${country}%')) 
         AND TRIM(LOWER(E.name)) LIKE TRIM(LOWER('%${eventName}%')) 
-            AND DATEDIFF(CURDATE(), date) <= 30 AND DATEDIFF(CURDATE(), date) >= 0
+            AND DATEDIFF(date, CURDATE()) <= 30 AND DATEDIFF(date, CURDATE()) >= 0
         ORDER BY date ASC`, function (error, results, fields) {
 
             if (error) {
