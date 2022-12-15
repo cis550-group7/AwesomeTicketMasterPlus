@@ -14,6 +14,19 @@ JOIN Artists a ON a.id = p.artistId
 GROUP BY p.artistId
 ORDER BY event_num DESC
 
+
+---------
+Optimized:
+WITH SubAr AS(
+SELECT id, name
+FROM Artists
+)
+SELECT SubAr.name, p.artistId, COUNT(*) AS event_num
+FROM Participation p
+JOIN SubAr ON SubAr.id = p.artistId
+GROUP BY p.artistId
+ORDER BY event_num DESC
+
 2. Upcoming events in 30 days
 
 SELECT id, name, date
@@ -43,6 +56,9 @@ SELECT *
 FROM Artists;
 
 6. Rank artists by event counts and show their info
+--------------
+Optimized to: 
+
 
 WITH TEMP AS (
 SELECT artistId, COUNT(*) AS numEvents
@@ -59,10 +75,22 @@ WHERE A.name = 'Justin Bieber';
 
 8.View artist’s songs 
 
-SELECT S.id, S.name, S.url
+SELECT S.id, S.name, S.uri
 FROM Songs S
 JOIN Artists A ON A.Id = S.ArtistId
 WHERE A.Name = 'Justin Bieber';
+------
+Optimized:
+
+WITH ArtistSub AS(
+SELECT id, name
+FROM Artists
+)
+SELECT S.id, S.name, S.uri
+FROM Songs S
+JOIN ArtistSub ON ArtistSub.Id = S.ArtistId
+WHERE ArtistSub.Name = 'Justin Bieber';
+
 
 9. View artist-participated events on their event page
 
@@ -71,6 +99,21 @@ FROM Artists A
 JOIN Participation P ON A.id = P.artistId 
 JOIN Events E ON E.id = P.eventID
 WHERE A.Name = 'Justin Bieber';
+--------------
+Optimized to: 
+
+WITH SubAr AS(
+SELECT id, name 
+FROM Artists),
+Subpar AS(
+SELECT P.eventID, P.artistId
+FROM Participation P)
+SELECT E.id, E.name, E.date, E.time, E.images, E.priceFrom, E.priceTo, E.venues
+FROM Events E 
+JOIN Subpar ON E.id = Subpar.eventID
+JOIN SubAr ON SubAr.id = Subpar.artistId 
+WHERE SubAr.name = 'Justin Bieber';
+
 
 - Events Page -
 
@@ -81,6 +124,17 @@ FROM Events E
 JOIN Venues V ON E.venues = V.id
 WHERE date > ‘2022-11-20’
 ORDER BY date;
+--------------
+Optimized:
+
+WITH VenuesID AS(
+SELECT id
+FROM Venues)
+SELECT E.name, images, priceFrom, priceTo, date, time, address, city, state, postalCode, country
+FROM Events E 
+JOIN VenuesID ON E.venues = VenuesID.id
+WHERE E.date > ‘2022-11-20’
+ORDER BY E.date;
 
 11. Search an event based on substring of event name
 
