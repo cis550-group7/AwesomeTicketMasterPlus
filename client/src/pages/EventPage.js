@@ -148,7 +148,11 @@ export default function EventPage(){
     return (
 
         <div>
-            <MenuBar />
+        <Row>
+        <Col flex={1}>
+        <MenuBar />
+        </Col>
+        <Col flex={11} >
 
             <Form style={{ width: '80vw', margin: '0 auto', marginTop: '5vh' }}>
                 <Row>
@@ -249,7 +253,8 @@ export default function EventPage(){
             </Card>
 
             </div> : null}
-
+            </Col>
+        </Row>
         </div>
     )
 }

@@ -9,7 +9,7 @@ import {
     Divider,
     Slider,
     Rate 
-} from 'antd'
+} from 'antd';
 import { RadarChart } from 'react-vis';
 import { format } from 'd3-format';
 
@@ -143,7 +143,11 @@ const songColumns = [
   
       return (
         <div>
-          <MenuBar />
+        <Row>
+        <Col flex={1}>
+        <MenuBar />
+        </Col>
+        <Col flex={11}>
           <Form style={{ width: '80vw', margin: '0 auto', marginTop: '5vh' }}>
                     <Row>
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
@@ -213,7 +217,8 @@ const songColumns = [
   
 
 </div> : null}
-
+  </Col>
+   </Row>
 </div>
       )
     }

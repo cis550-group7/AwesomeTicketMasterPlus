@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Form, Button, FormInput, FormGroup } from "shards-react";
 import MenuBar from '../components/MenuBar';
 import { createNewUser} from '../fetcher';
-
+import {
+  Row,
+  Col,
+} from 'antd'
 
 function RegisterPage() {
   const [name, setName] = useState('');
@@ -24,7 +27,11 @@ function RegisterPage() {
 
     return (
       <div>
-      <MenuBar />
+        <Row>
+        <Col flex={1}>
+        <MenuBar />
+        </Col>
+        <Col flex={11} >
       <Form style={{ width: '40vw', margin: '0 auto', marginTop: '5vh' }} onSubmit={submitHandler}>
       <FormGroup>
         <label htmlFor="#name">Name</label>
@@ -50,6 +57,8 @@ function RegisterPage() {
         Register
       </Button>
     </Form>
+    </Col>
+        </Row>
     </div>
     );
 }

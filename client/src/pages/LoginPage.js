@@ -6,7 +6,13 @@ import { getUser } from "../fetcher";
 import { useSelector, useDispatch} from 'react-redux'
 import {updateCurrentUser, selectCurrentUser} from './currentUserSlice'
 import { Redirect } from "react-router-dom";
-
+import {
+  Table,
+  Pagination,
+  Select,
+  Row,
+  Col,
+} from 'antd'
 
 function LoginPage() {
   const [authenticated, setAuthen] = useState(false);
@@ -55,7 +61,11 @@ function LoginPage() {
 
     return (
       <div>
-      <MenuBar />
+        <Row>
+        <Col flex={1}>
+        <MenuBar />
+        </Col>
+        <Col flex={11} >
       <Form style={{ width: '40vw', margin: '0 auto', marginTop: '5vh' }} onSubmit={submitHandler}>
       <FormGroup>
         <label htmlFor="#username">Username</label>
@@ -69,6 +79,8 @@ function LoginPage() {
         Login
       </Button>
     </Form>
+    </Col>
+        </Row>
     </div>
     );
 }

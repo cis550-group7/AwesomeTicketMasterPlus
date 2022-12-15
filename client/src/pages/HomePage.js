@@ -2,9 +2,10 @@ import React from 'react';
 import {
   Table,
   Pagination,
-  Select
+  Select,
+  Row,
+  Col,
 } from 'antd'
-
 import MenuBar from '../components/MenuBar';
 import { getUpcomingEvents, getPopularArtists, getArtistsByNumEvents} from '../fetcher'
 const { Column, ColumnGroup } = Table;
@@ -93,7 +94,11 @@ class HomePage extends React.Component {
 
     return (
       <div>
+        <Row>
+        <Col flex={1}>
         <MenuBar />
+        </Col>
+        <Col flex={11}>
         <div style={{ width: '70vw', margin: '0 auto', marginTop: '5vh' }}>
           <h3>Top 100 Artists</h3>
           <Table dataSource={this.state.playersResults} columns={playerColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 10, showQuickJumper:true }}/>
@@ -119,8 +124,8 @@ class HomePage extends React.Component {
           </Table>
 
         </div>
-
-
+        </Col>
+        </Row>
       </div>
     )
   }

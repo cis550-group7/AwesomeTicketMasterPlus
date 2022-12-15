@@ -127,7 +127,11 @@ function UserPage() {
 
     return(
       <>
-      <MenuBar />
+        <Row >
+        <Col flex={1}>
+        <MenuBar />
+        </Col>
+        <Col flex={11} >
       
       <Card style={{ width: '80vw', margin: '0 auto', marginTop: '5vh' }}>
       <CardBody>
@@ -172,6 +176,8 @@ function UserPage() {
           <h3>Reservations</h3>
           <Table dataSource={eventsResults} columns={eventsColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 10, showQuickJumper:true }}/>
         </div>
+        </Col>
+        </Row>
     </>
     )
 
